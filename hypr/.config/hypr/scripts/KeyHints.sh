@@ -75,5 +75,9 @@ yad --width=$dynamic_width --height=$dynamic_height \
 " ALT V" "Clipboard Manager" "cliphist" \
 " H" "Launch this app" "" \
 " E" "View or EDIT Keybinds, Settings, Monitor" "" \
-"" "" "" \
+"" "My Custom Keys" "" \
+" ARR-UP" "Turns up screen warmth." "" \
+" ARR-DWN" "Turns down screen warmth." "" \
+" =" "Starts Qcalculator app. " "" \
+" C" "Starts Zen Browser (flask) " "" \
 "More tips:" "https://github.com/JaKooLit/Hyprland-Dots/wiki" ""\
