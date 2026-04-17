@@ -98,12 +98,35 @@ shotactive() {
 }
 
 shotswappy() {
-	tmpfile=$(mktemp)
-	grim -g "$(slurp)" - >"$tmpfile" && "${sDIR}/Sounds.sh" --screenshot && notify_view "swappy"
-	swappy -f - <"$tmpfile"
-	rm "$tmpfile"
-}
+    tmpfile=$(mktemp --suffix=.png) || return 1
+    scaled="${tmpfile%.png}-scaled.png"
 
+    grim -g "$(slurp)" - >"$tmpfile" || {
+        rm -f "$tmpfile"
+        return 1
+    }
+
+    qr_text=$(zbarimg --quiet --raw --set *.test-inverted=1 "$tmpfile" 2>/dev/null | head -n 1)
+
+    if [ -z "$qr_text" ]; then
+        magick "$tmpfile" -scale 400% "$scaled" 2>/dev/null
+        qr_text=$(zbarimg --quiet --raw --set *.test-inverted=1 "$scaled" 2>/dev/null | head -n 1)
+    fi
+
+    if [ -n "$qr_text" ]; then
+        printf '%s' "$qr_text" | wl-copy
+        "${sDIR}/Sounds.sh" --screenshot
+        notify-send "QR detected and copied" "$qr_text"
+        rm -f "$tmpfile" "$scaled"
+        return 0
+    fi
+
+    "${sDIR}/Sounds.sh" --screenshot
+    notify_view "swappy"
+    swappy -f "$tmpfile"
+
+    rm -f "$tmpfile" "$scaled"
+}
 
 if [[ ! -d "$dir" ]]; then
 	mkdir -p "$dir"
