@@ -109,6 +109,7 @@ hl.config({
 
   render = {
     direct_scanout = false, -- was off on the laptop too; set 2 to try it for games
+    cm_auto_hdr    = 0,     -- never auto-switch the monitor to HDR in fullscreen
   },
 
   binds = {
