@@ -30,3 +30,11 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("hypridle")
   hl.exec_cmd("pypr")
 end)
+
+-- Redraw the wallpaper whenever a monitor is added or its resolution/layout changes,
+-- so swww never keeps showing an image sized for the old mode.
+local function redraw_wallpaper()
+  hl.exec_cmd("sleep 0.5; swww img \"$HOME/.config/hypr/wallpaper_effects/.wallpaper_current\" --transition-type none")
+end
+hl.on("monitor.layout_changed", redraw_wallpaper)
+hl.on("monitor.added", redraw_wallpaper)
