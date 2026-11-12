@@ -87,14 +87,12 @@ hl.config({
 
   dwindle = {
     preserve_split       = true,
-    special_scale_factor = 0.85,
   },
 
   master = {
     new_status           = "master",
     new_on_top           = true,
     mfact                = 0.5,
-    special_scale_factor = 0.85,
   },
 
   misc = {
@@ -141,3 +139,7 @@ hl.animation({ leaf = "windowsMove", enabled = true, speed = 5,   bezier = "wind
 hl.animation({ leaf = "border",      enabled = true, speed = 1,   bezier = "liner" })
 hl.animation({ leaf = "fade",        enabled = true, speed = 10,  bezier = "default" })
 hl.animation({ leaf = "workspaces",  enabled = true, speed = 5,   bezier = "wind" })
+
+-- Special workspace (scratchpad, SUPER+U): windows float in the middle at ~85% size.
+-- Replaces the deprecated dwindle/master special_scale_factor (0.85 on 2560x1440 ≈ 108px / 192px margins).
+hl.workspace_rule({ workspace = "s[true]", gaps_out = { top = 108, right = 192, bottom = 108, left = 192 } })
