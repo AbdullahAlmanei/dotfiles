@@ -73,3 +73,8 @@ for i, l in ipairs(blurred) do
 end
 
 hl.layer_rule({ name = "swaync-slide", match = { namespace = "^(swaync-control-center)$" }, animation = "slide right" })
+
+---------------------------------------------------------------- HDR
+-- Hyprland auto-switches the monitor to HDR for fullscreen windows that look like HDR content.
+-- Spotify (Chromium) trips that falsely; real HDR games/videos still trigger it.
+rule({ class = "^(Spotify|spotify)$" }, { name = "spotify-no-auto-hdr", no_auto_hdr = true })
